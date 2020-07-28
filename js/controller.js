@@ -1,5 +1,4 @@
 (function (window) {
-	debugger;
 	'use strict';
 
 	/**
@@ -77,6 +76,7 @@
 		self.model.read({
 			completed: false
 		}, function (data) {
+			debugger;
 			self.view.render('showEntries', data);
 		});
 	};

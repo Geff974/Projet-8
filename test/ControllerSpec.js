@@ -90,23 +90,30 @@ describe('controller', function () {
 		it('should show active entries', function () {
 			// TODO: write test
 			const todo = {
-				title: 'my first todo active',
+				title: 'my todo active',
 				completed: false
 			};
-
 			setUpModel([todo]);
 			//TODO: Il lappel forcement avec le model todo. Trouver comment afficher le filtre
 
 			subject.setView('#/active');
 
-			expect(subject.showActive).toHaveBeenCalled();
 			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
+			expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
+
 		});
 
 		it('should show completed entries', function () {
 			// TODO: write test
+			const todo = {
+				title: 'my todo active',
+				completed: true
+			};
+			setUpModel([todo]);
+
 			subject.setView('#/completed');
 
+			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
 			expect(view.render).toHaveBeenCalledWith('setFilter', 'completed');
 		});
 	});

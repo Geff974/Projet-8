@@ -1,7 +1,6 @@
 /*global qs, qsa, $on, $parent, $delegate */
 
 (function (window) {
-	debugger;
 	'use strict';
 
 	/**

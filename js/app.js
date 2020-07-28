@@ -1,6 +1,5 @@
 /*global app, $on */
 (function () {
-	debugger;
 	'use strict';
 
 	/**

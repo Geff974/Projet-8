@@ -1,5 +1,4 @@
 (function (window) {
-	debugger;
 	'use strict';
 
 	/**
