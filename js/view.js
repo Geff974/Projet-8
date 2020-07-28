@@ -1,6 +1,7 @@
 /*global qs, qsa, $on, $parent, $delegate */
 
 (function (window) {
+	debugger;
 	'use strict';
 
 	/**
@@ -94,7 +95,6 @@
 
 	View.prototype.render = function (viewCmd, parameter) {
 		var self = this;
-		debugger;
 		var viewCommands = {
 			showEntries: function () {
 				self.$todoList.innerHTML = self.template.show(parameter);

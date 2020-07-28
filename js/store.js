@@ -1,5 +1,6 @@
 /*jshint eqeqeq:false */
 (function (window) {
+	debugger;
 	'use strict';
 
 	/**

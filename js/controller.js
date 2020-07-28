@@ -1,4 +1,5 @@
 (function (window) {
+	debugger;
 	'use strict';
 
 	/**
@@ -72,7 +73,6 @@
 	 * Renders all active tasks
 	 */
 	Controller.prototype.showActive = function () {
-		debugger;
 		var self = this;
 		self.model.read({
 			completed: false
@@ -262,7 +262,7 @@
 				visible: todos.completed > 0
 			});
 
-			self.view.render('toggleAll', {
+			self.view.render('toggleAll', { // FIXME : toggleAll button ne fonctionne pas.
 				checked: todos.completed === todos.total
 			});
 			self.view.render('contentBlockVisibility', {

@@ -89,20 +89,18 @@ describe('controller', function () {
 
 		it('should show active entries', function () {
 			// TODO: write test
-			const todo = [{
-					title: 'my first todo active',
-					completed: false
-				},
-				{
-					title: 'my second todo completed',
-					completed: true
-				}
-			];
-			setUpModel(todo);
+			const todo = {
+				title: 'my first todo active',
+				completed: false
+			};
+
+			setUpModel([todo]);
+			//TODO: Il lappel forcement avec le model todo. Trouver comment afficher le filtre
 
 			subject.setView('#/active');
 
-			expect(view.render).toHaveBeenCalledWith('showEntries', [todo[0]]);
+			expect(subject.showActive).toHaveBeenCalled();
+			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
 		});
 
 		it('should show completed entries', function () {
@@ -110,7 +108,6 @@ describe('controller', function () {
 			subject.setView('#/completed');
 
 			expect(view.render).toHaveBeenCalledWith('setFilter', 'completed');
-
 		});
 	});
 
@@ -173,7 +170,9 @@ describe('controller', function () {
 
 	it('should highlight "Active" filter when switching to active view', function () {
 		// TODO: write test
+		subject.setView('#/active');
 
+		expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
 
 	});
 
