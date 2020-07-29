@@ -1,4 +1,5 @@
 (function (window) {
+
 	'use strict';
 
 	/**
@@ -76,7 +77,7 @@
 		self.model.read({
 			completed: false
 		}, function (data) {
-			debugger;
+
 			self.view.render('showEntries', data);
 		});
 	};
@@ -98,6 +99,7 @@
 	 * object and it'll handle the DOM insertion and saving of the new item.
 	 */
 	Controller.prototype.addItem = function (title) {
+		debugger;
 		var self = this;
 
 		if (title.trim() === '') {
@@ -254,6 +256,7 @@
 	 * number of todos.
 	 */
 	Controller.prototype._updateCount = function () {
+		debugger;
 		var self = this;
 		self.model.getCount(function (todos) {
 			self.view.render('updateElementCount', todos.active);

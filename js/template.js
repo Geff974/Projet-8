@@ -1,5 +1,6 @@
 /*jshint laxbreak:true */
 (function (window) {
+
 	'use strict';
 
 	var htmlEscapes = {

@@ -93,6 +93,7 @@
 	};
 
 	View.prototype.render = function (viewCmd, parameter) {
+		debugger;
 		var self = this;
 		var viewCommands = {
 			showEntries: function () {
@@ -173,6 +174,7 @@
 	};
 
 	View.prototype.bind = function (event, handler) {
+		debugger;
 		var self = this;
 		if (event === 'newTodo') {
 			$on(self.$newTodo, 'change', function () {

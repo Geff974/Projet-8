@@ -1,4 +1,5 @@
 (function (window) {
+
 	'use strict';
 
 	/**
@@ -45,6 +46,7 @@
 	 * model.read({ foo: 'bar', hello: 'world' });
 	 */
 	Model.prototype.read = function (query, callback) {
+
 		var queryType = typeof query;
 		callback = callback || function () {};
 

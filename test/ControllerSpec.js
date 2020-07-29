@@ -88,23 +88,25 @@ describe('controller', function () {
 		});
 
 		it('should show active entries', function () {
-			// TODO: write test
+			// Test writed
+			spyOn(subject, 'showActive');
+
 			const todo = {
 				title: 'my todo active',
 				completed: false
 			};
 			setUpModel([todo]);
-			//TODO: Il lappel forcement avec le model todo. Trouver comment afficher le filtre
 
 			subject.setView('#/active');
 
-			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
-			expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
+			expect(subject.showActive).toHaveBeenCalled();
 
 		});
 
 		it('should show completed entries', function () {
-			// TODO: write test
+			// Test writed
+			spyOn(subject, 'showCompleted');
+
 			const todo = {
 				title: 'my todo active',
 				completed: true
@@ -113,8 +115,7 @@ describe('controller', function () {
 
 			subject.setView('#/completed');
 
-			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
-			expect(view.render).toHaveBeenCalledWith('setFilter', 'completed');
+			expect(subject.showCompleted).toHaveBeenCalled();
 		});
 	});
 
@@ -176,16 +177,16 @@ describe('controller', function () {
 	});
 
 	it('should highlight "Active" filter when switching to active view', function () {
-		// TODO: write test
+		// Test writed
 		subject.setView('#/active');
 
 		expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
-
 	});
 
 	describe('toggle all', function () {
 		it('should toggle all todos to completed', function () {
 			// TODO: write test
+
 		});
 
 		it('should update the view', function () {
@@ -196,6 +197,8 @@ describe('controller', function () {
 	describe('new todo', function () {
 		it('should add a new todo to the model', function () {
 			// TODO: write test
+			// model.create('test');
+
 		});
 
 		it('should add a new todo to the view', function () {
