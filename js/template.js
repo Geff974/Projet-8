@@ -107,7 +107,6 @@
 			return '';
 		}
 	};
-	// FIXME: pourquoi le 'prototype'
 
 	// Export to window
 	window.app = window.app || {};

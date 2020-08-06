@@ -172,8 +172,10 @@ describe('controller', function () {
 	});
 
 	it('should highlight "All" filter by default', function () {
-		// TODO: write test
+		// Test writed
+		subject.setView('');
 
+		expect(view.render).toHaveBeenCalledWith('setFilter', '');
 	});
 
 	it('should highlight "Active" filter when switching to active view', function () {
@@ -185,19 +187,30 @@ describe('controller', function () {
 
 	describe('toggle all', function () {
 		it('should toggle all todos to completed', function () {
-			// TODO: write test
+			// Test writed
+			const todo = {
+				title: 'tod completed',
+				completed: true
+			}
+			setUpModel([todo]);
 
+			subject.setView('');
+
+			expect(view.render).toHaveBeenCalledWith('toggleAll', {
+				checked: true
+			});
 		});
 
 		it('should update the view', function () {
 			// TODO: write test
+
 		});
 	});
 
 	describe('new todo', function () {
 		it('should add a new todo to the model', function () {
 			// TODO: write test
-			// model.create('test');
+			model.create('test');
 
 		});
 

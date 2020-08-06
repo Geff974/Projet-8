@@ -256,7 +256,6 @@
 	 * number of todos.
 	 */
 	Controller.prototype._updateCount = function () {
-		debugger;
 		var self = this;
 		self.model.getCount(function (todos) {
 			self.view.render('updateElementCount', todos.active);
@@ -265,7 +264,7 @@
 				visible: todos.completed > 0
 			});
 
-			self.view.render('toggleAll', { // FIXME : toggleAll button ne fonctionne pas.
+			self.view.render('toggleAll', {
 				checked: todos.completed === todos.total
 			});
 			self.view.render('contentBlockVisibility', {
