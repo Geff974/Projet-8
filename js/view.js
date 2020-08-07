@@ -200,6 +200,7 @@
 			});
 
 		} else if (event === 'itemRemove') {
+			debugger;
 			$delegate(self.$todoList, '.destroy', 'click', function () {
 				handler({
 					id: self._itemId(this)

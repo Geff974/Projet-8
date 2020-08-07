@@ -3,7 +3,8 @@
 describe('controller', function () {
 	'use strict';
 
-	var subject, model, view;
+	var subject, model, view, localStorage;
+
 
 	var setUpModel = function (todos) {
 		model.read.and.callFake(function (query, callback) {
@@ -27,6 +28,8 @@ describe('controller', function () {
 		});
 
 		model.remove.and.callFake(function (id, callback) {
+			console.log('Afficher !!!!!');
+			debugger;
 			callback();
 		});
 
@@ -56,10 +59,12 @@ describe('controller', function () {
 		model = jasmine.createSpyObj('model', ['read', 'getCount', 'remove', 'create', 'update']);
 		view = createViewStub();
 		subject = new app.Controller(model, view);
+		localStorage = jasmine.createSpy()
 	});
 
 	it('should show entries on start-up', function () {
 		// TODO: write test
+
 
 	});
 
@@ -185,11 +190,18 @@ describe('controller', function () {
 		expect(view.render).toHaveBeenCalledWith('setFilter', 'active');
 	});
 
+	it('should highlight "Completed" filter when switching to completed view', function () {
+		// Test add
+		subject.setView('#/completed');
+
+		expect(view.render).toHaveBeenCalledWith('setFilter', 'completed');
+	})
+
 	describe('toggle all', function () {
 		it('should toggle all todos to completed', function () {
 			// Test writed
 			const todo = {
-				title: 'tod completed',
+				title: 'todo completed',
 				completed: true
 			}
 			setUpModel([todo]);
@@ -203,15 +215,19 @@ describe('controller', function () {
 
 		it('should update the view', function () {
 			// TODO: write test
+			spyOn(subject, "_filter");
+			subject.setView('');
 
+			expect(subject._filter).toHaveBeenCalled();
 		});
 	});
 
 	describe('new todo', function () {
 		it('should add a new todo to the model', function () {
 			// TODO: write test
-			model.create('test');
+			subject.addItem('testAdd');
 
+			expect(model.create).toHaveBeenCalled();
 		});
 
 		it('should add a new todo to the view', function () {
@@ -252,6 +268,34 @@ describe('controller', function () {
 	describe('element removal', function () {
 		it('should remove an entry from the model', function () {
 			// TODO: write test
+			const todo = [{
+					id: 0,
+					title: 'First todo',
+					completed: false
+				},
+				{
+					id: 1,
+					title: 'Second todo',
+					completed: false
+				}
+			]
+
+			subject._filter = function () {};
+			debugger;
+			const todo1 = todo[0];
+			setUpModel(todo);
+			subject.removeItem(1);
+			console.log(subject);
+			// subject.model.read({
+			// 	completed: false
+			// });
+			let todoResult;
+			const fnt = (todo) => {
+				console.log(todo);
+				todoResult = todo;
+			}
+			console.log(subject.model.getCount(fnt));
+			expect(todo.length).toEqual(1);
 		});
 
 		it('should remove an entry from the view', function () {

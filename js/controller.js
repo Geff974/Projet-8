@@ -99,7 +99,6 @@
 	 * object and it'll handle the DOM insertion and saving of the new item.
 	 */
 	Controller.prototype.addItem = function (title) {
-		debugger;
 		var self = this;
 
 		if (title.trim() === '') {
