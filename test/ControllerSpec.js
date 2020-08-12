@@ -3,7 +3,7 @@
 describe('controller', function () {
 	'use strict';
 
-	var subject, model, view, localStorage;
+	var subject, model, view;
 
 
 	var setUpModel = function (todos) {
@@ -28,8 +28,6 @@ describe('controller', function () {
 		});
 
 		model.remove.and.callFake(function (id, callback) {
-			console.log('Afficher !!!!!');
-			debugger;
 			callback();
 		});
 
@@ -59,13 +57,19 @@ describe('controller', function () {
 		model = jasmine.createSpyObj('model', ['read', 'getCount', 'remove', 'create', 'update']);
 		view = createViewStub();
 		subject = new app.Controller(model, view);
-		localStorage = jasmine.createSpy()
 	});
 
 	it('should show entries on start-up', function () {
-		// TODO: write test
+		// Test writed
+		const todo = {
+			title: 'my todo',
+			completed: false
+		}
 
+		setUpModel([todo]);
 
+		subject.setView('');
+		expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
 	});
 
 	describe('routing', function () {
@@ -191,7 +195,7 @@ describe('controller', function () {
 	});
 
 	it('should highlight "Completed" filter when switching to completed view', function () {
-		// Test add
+		// Test writed
 		subject.setView('#/completed');
 
 		expect(view.render).toHaveBeenCalledWith('setFilter', 'completed');
@@ -199,14 +203,18 @@ describe('controller', function () {
 
 	describe('toggle all', function () {
 		it('should toggle all todos to completed', function () {
-			// Test writed
+			// TODO: write test
 			const todo = {
 				title: 'todo completed',
-				completed: true
+				completed: false
 			}
 			setUpModel([todo]);
 
 			subject.setView('');
+
+			subject.toggleAll(true);
+
+			console.log(todo);
 
 			expect(view.render).toHaveBeenCalledWith('toggleAll', {
 				checked: true
@@ -215,19 +223,46 @@ describe('controller', function () {
 
 		it('should update the view', function () {
 			// TODO: write test
-			spyOn(subject, "_filter");
+			const todo = {
+				id: 1,
+				title: 'A new todo',
+				completed: false
+			}
+
+			setUpModel([todo]);
 			subject.setView('');
 
-			expect(subject._filter).toHaveBeenCalled();
+			view.trigger('itemToggle', {
+				id: 1,
+				completed: true
+			});
+
+			expect(model.update)
 		});
 	});
 
 	describe('new todo', function () {
 		it('should add a new todo to the model', function () {
-			// TODO: write test
-			subject.addItem('testAdd');
+			// Test writed
+			setUpModel([]);
 
-			expect(model.create).toHaveBeenCalled();
+			subject.setView('');
+
+
+			model.read.and.callFake(function (callback) {
+				callback([{
+					title: 'A new todo',
+					completed: false
+				}]);
+			});
+
+			view.trigger('newTodo', 'A new todo');
+
+			expect(model.create).toHaveBeenCalledWith('A new todo', jasmine.any(Function));
+			expect(view.render).toHaveBeenCalledWith('showEntries', [{
+				title: 'A new todo',
+				completed: false
+			}]);
 		});
 
 		it('should add a new todo to the view', function () {
@@ -267,35 +302,21 @@ describe('controller', function () {
 
 	describe('element removal', function () {
 		it('should remove an entry from the model', function () {
-			// TODO: write test
-			const todo = [{
-					id: 0,
-					title: 'First todo',
-					completed: false
-				},
-				{
-					id: 1,
-					title: 'Second todo',
-					completed: false
-				}
-			]
+			// Test writed
+			const todo = {
+				id: 42,
+				title: 'Second todo',
+				completed: false
+			};
+			setUpModel([todo]);
+			subject.setView('');
 
-			subject._filter = function () {};
-			debugger;
-			const todo1 = todo[0];
-			setUpModel(todo);
-			subject.removeItem(1);
-			console.log(subject);
-			// subject.model.read({
-			// 	completed: false
-			// });
-			let todoResult;
-			const fnt = (todo) => {
-				console.log(todo);
-				todoResult = todo;
-			}
-			console.log(subject.model.getCount(fnt));
-			expect(todo.length).toEqual(1);
+			view.trigger('itemRemove', {
+				id: 42
+			});
+
+			expect(model.remove).toHaveBeenCalledWith(42, jasmine.any(Function));
+			expect(view.render).toHaveBeenCalledWith('removeItem', 42);
 		});
 
 		it('should remove an entry from the view', function () {

@@ -35,6 +35,7 @@
 		});
 
 		self.view.bind('itemToggle', function (item) {
+			debugger;
 			self.toggleComplete(item.id, item.completed);
 		});
 
@@ -43,6 +44,7 @@
 		});
 
 		self.view.bind('toggleAll', function (status) {
+			debugger;
 			self.toggleAll(status.completed);
 		});
 	}
