@@ -111,7 +111,6 @@
 				self.$main.style.display = self.$footer.style.display = parameter.visible ? 'block' : 'none';
 			},
 			toggleAll: function () {
-				debugger;
 				self.$toggleAll.checked = parameter.checked;
 			},
 			setFilter: function () {
@@ -121,6 +120,7 @@
 				self.$newTodo.value = '';
 			},
 			elementComplete: function () {
+				console.log('view entrer');
 				self._elementComplete(parameter.id, parameter.completed);
 			},
 			editItem: function () {
@@ -187,7 +187,6 @@
 			});
 
 		} else if (event === 'toggleAll') {
-			debugger;
 			$on(self.$toggleAll, 'click', function () {
 				handler({
 					completed: this.checked
