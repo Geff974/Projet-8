@@ -14,37 +14,89 @@
 		self.model = model;
 		self.view = view;
 
-		self.view.bind('newTodo', function (title) {
-			self.addItem(title);
+		// Personnalisation
+		this.$todoList = qs('.todo-list');
+		this.$todoItemCounter = qs('.todo-count');
+		this.$clearCompleted = qs('.clear-completed');
+		this.$main = qs('.main');
+		this.$footer = qs('.footer');
+		this.$toggleAll = qs('.toggle-all');
+		this.$newTodo = qs('.new-todo');
+
+
+		$on(self.$newTodo, 'change', function () {
+			self.addItem(self.$newTodo.value);
 		});
 
-		self.view.bind('itemEdit', function (item) {
-			self.editItem(item.id);
+		$delegate(self.$todoList, 'li label', 'dblclick', function () {
+			self.editItem({
+				id: self.view._itemId(this)
+			});
+		});
+		// FIXME: corriger le probleme des 2 lign suivante. Le item n'est pas defini(ou trouve)
+
+		// self.view._bindItemEditDone(self.editItemSave(item.id, item.title));
+
+
+		// self.view._bindItemEditCancel(self.editItemCancel(item.id));
+
+		$delegate(self.$todoList, '.destroy', 'click', function () {
+			self.removeItem({
+				id: self.view._itemId(this)
+			});
 		});
 
-		self.view.bind('itemEditDone', function (item) {
-			self.editItemSave(item.id, item.title);
+		$delegate(self.$todoList, '.toggle', 'click', function () {
+			self.toggleComplete({
+				id: self.view._itemId(this),
+				completed: this.checked
+			});
 		});
 
-		self.view.bind('itemEditCancel', function (item) {
-			self.editItemCancel(item.id);
+
+		$on(self.$newTodo, 'change', function () {
+			self.removeCompletedItems(self.$newTodo.value);
 		});
 
-		self.view.bind('itemRemove', function (item) {
-			self.removeItem(item.id);
+		$on(self.$toggleAll, 'click', function () {
+			self.toggleAll({
+				completed: this.checked
+			});
 		});
 
-		self.view.bind('itemToggle', function (item) {
-			self.toggleComplete(item.id, item.completed);
-		});
+		// Fin personnalisation------------
 
-		self.view.bind('removeCompleted', function () {
-			self.removeCompletedItems();
-		});
+		// self.view.bind('newTodo', function (title) {
+		// 	self.addItem(title);
+		// });
 
-		self.view.bind('toggleAll', function (status) {
-			self.toggleAll(status.completed);
-		});
+		// self.view.bind('itemEdit', function (item) {
+		// 	self.editItem(item.id);
+		// });
+
+		// self.view.bind('itemEditDone', function (item) {
+		// 	self.editItemSave(item.id, item.title);
+		// });
+
+		// self.view.bind('itemEditCancel', function (item) {
+		// 	self.editItemCancel(item.id);
+		// });
+
+		// self.view.bind('itemRemove', function (item) {
+		// 	self.removeItem(item.id);
+		// });
+
+		// self.view.bind('itemToggle', function (item) {
+		// 	self.toggleComplete(item.id, item.completed);
+		// });
+
+		// self.view.bind('removeCompleted', function () {
+		// 	self.removeCompletedItems();
+		// });
+
+		// self.view.bind('toggleAll', function (status) {
+		// 	self.toggleAll(status.completed);
+		// });
 	}
 
 	/**
