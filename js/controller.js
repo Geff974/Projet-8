@@ -36,6 +36,9 @@
 		// FIXME: corriger le probleme des 2 lign suivante. Le item n'est pas defini(ou trouve)
 
 		// self.view._bindItemEditDone(self.editItemSave(item.id, item.title));
+		self.view.bind('itemEditDone', function (item) {
+			self.editItemSave(item.id, item.title);
+		});
 
 
 		// self.view._bindItemEditCancel(self.editItemCancel(item.id));

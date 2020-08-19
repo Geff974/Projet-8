@@ -217,12 +217,12 @@
 			// 	});
 			// });
 			// break;
-			// case 'itemEditDone':
-			// 	self._bindItemEditDone(handler);
-			// break;
-			// case 'itemEditCancel':
-			// 	self._bindItemEditCancel(handler);
-			// 	break;
+			case 'itemEditDone':
+				self._bindItemEditDone(handler);
+				break;
+			case 'itemEditCancel':
+				self._bindItemEditCancel(handler);
+				break;
 		}
 
 
